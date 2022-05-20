@@ -22,4 +22,13 @@ public class VendaDAO  extends AbstractDAO<Venda>{
         
     }
     
+    public List<Object[]> findByMes(){
+        
+        return getEntityManager()
+                .createQuery("SELECT SQL('EXTRACT(MONTH FROM ?)', v.data) "
+                        + "AS mes, SUM(v.valor) FROM Venda v GROUP BY mes ORDER BY mes")
+                .getResultList();
+        
+    }
+    // SELECT SQL('EXTRACT(MONTH FROM ?)', v.data) AS mes, SUM(v.valor) FROM Venda v GROUP BY mes ORDER BY mes
 }
