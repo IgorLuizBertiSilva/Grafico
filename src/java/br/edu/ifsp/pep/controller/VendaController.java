@@ -52,6 +52,17 @@ public class VendaController {
         }
     }
     
+    public void listaPorMes(){
+        
+        for(Object[] obj : vendaDAO.findByMes()){
+            
+            System.out.println("Mes: " + obj[0]);
+            System.out.println("Valor: " + obj[1]);
+            
+        }
+        
+    }
+    
     public void gerarGraficoVendaPorMes(){
         
         // cria um dataset
