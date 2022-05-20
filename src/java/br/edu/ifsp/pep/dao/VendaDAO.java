@@ -4,6 +4,7 @@
  */
 package br.edu.ifsp.pep.dao;
 
+import br.edu.ifsp.pep.model.Venda;
 import javax.ejb.Stateless;
 
 /**
@@ -11,6 +12,6 @@ import javax.ejb.Stateless;
  * @author aluno
  */
 @Stateless
-public class VendaDAO  extends AbstractDAO{
+public class VendaDAO  extends AbstractDAO<Venda>{
     
 }
