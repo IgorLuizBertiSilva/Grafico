@@ -14,4 +14,6 @@ import javax.ejb.Stateless;
 @Stateless
 public class VendaDAO  extends AbstractDAO<Venda>{
     
+    
+    
 }

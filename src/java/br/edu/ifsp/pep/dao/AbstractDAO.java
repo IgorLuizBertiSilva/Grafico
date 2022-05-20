@@ -11,9 +11,10 @@ import javax.persistence.PersistenceUnit;
  *
  * @author aluno
  */
+
 public abstract class AbstractDAO<T> {
 
-    @PersistenceUnit(unitName = "")
+    @PersistenceUnit(unitName = "graficoPU")
     private EntityManager em;
 
     public void create(T entity) {
