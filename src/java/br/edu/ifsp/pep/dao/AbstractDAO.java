@@ -5,6 +5,7 @@
 package br.edu.ifsp.pep.dao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 
 /**
@@ -14,8 +15,14 @@ import javax.persistence.PersistenceUnit;
 
 public abstract class AbstractDAO<T> {
 
-    @PersistenceUnit(unitName = "graficoPU")
+    @PersistenceContext(unitName = "graficoPU")
     private EntityManager em;
+    
+    protected EntityManager getEntityManager(){
+        
+        return em;
+        
+    }
 
     public void create(T entity) {
 

@@ -5,6 +5,7 @@
 package br.edu.ifsp.pep.dao;
 
 import br.edu.ifsp.pep.model.Venda;
+import java.util.List;
 import javax.ejb.Stateless;
 
 /**
@@ -14,6 +15,11 @@ import javax.ejb.Stateless;
 @Stateless
 public class VendaDAO  extends AbstractDAO<Venda>{
     
-    
+    public List<Venda> findAll(){
+        
+        return getEntityManager().createQuery("SELECT v FROM Venda v", Venda.class)
+                .getResultList();
+        
+    }
     
 }

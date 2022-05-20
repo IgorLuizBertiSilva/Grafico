@@ -4,9 +4,12 @@
  */
 package br.edu.ifsp.pep.controller;
 
+import br.edu.ifsp.pep.dao.VendaDAO;
+import br.edu.ifsp.pep.model.Venda;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.model.charts.ChartData;
 import org.primefaces.model.charts.axes.cartesian.CartesianScales;
@@ -29,9 +32,24 @@ import org.primefaces.model.charts.optionconfig.title.Title;
 public class VendaController {
     
     private BarChartModel barModel;
+    
+    @Inject
+    private VendaDAO vendaDAO;
+    
+    
+    
+    
 
     public BarChartModel getBarModel() {
         return barModel;
+    }
+    
+    
+    public void lista(){
+        
+        for(Venda venda : vendaDAO.findAll()){
+            System.out.println(venda);
+        }
     }
     
     public void gerarGraficoVendaPorMes(){
@@ -161,7 +179,12 @@ public class VendaController {
     
     
     public VendaController() {
+        vendaDAO = new VendaDAO();
+        
         this.gerarGraficoVendaPorMes();
+        
+        
+        
     }
     
     
