@@ -4,6 +4,7 @@
  */
 package br.edu.ifsp.pep.dao;
 
+import br.edu.ifsp.pep.dto.VendaDTO;
 import br.edu.ifsp.pep.model.Venda;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -30,5 +31,17 @@ public class VendaDAO  extends AbstractDAO<Venda>{
                 .getResultList();
         
     }
+    
+    public List<VendaDTO> findByMesDTO(){
+        
+        return getEntityManager()
+                .createQuery("SELECT NEW br.edu.ifsp.pep.dto.VendaDTO("
+                        + "FUNC('MONTH', v.data), SUM(v.valor)) "
+                        + "FROM Venda v GROUP BY FUNC('MONTH', v.data) "
+                        + "ORDER BY 1", VendaDTO.class)
+                .getResultList();
+        
+    }
+    
     // SELECT SQL('EXTRACT(MONTH FROM ?)', v.data) AS mes, SUM(v.valor) FROM Venda v GROUP BY mes ORDER BY mes
 }

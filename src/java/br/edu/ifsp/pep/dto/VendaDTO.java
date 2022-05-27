@@ -21,6 +21,13 @@ public class VendaDTO {
     public double getValor() {
         return valor;
     }
+
+    @Override
+    public String toString() {
+        return "VendaDTO{" + "mes=" + mes + ", valor=" + valor + '}';
+    }
+    
+    
     
     public VendaDTO(int mes, double valor){
         

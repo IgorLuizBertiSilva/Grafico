@@ -5,9 +5,11 @@
 package br.edu.ifsp.pep.controller;
 
 import br.edu.ifsp.pep.dao.VendaDAO;
+import br.edu.ifsp.pep.dto.VendaDTO;
 import br.edu.ifsp.pep.model.Venda;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -44,6 +46,12 @@ public class VendaController {
         return barModel;
     }
     
+    @PostConstruct
+    public void init(){
+        System.out.println("Chamou o método init....");
+        gerarGraficoVendaPorMes();
+    }
+    
     
     public void lista(){
         
@@ -63,6 +71,17 @@ public class VendaController {
         
     }
     
+    public void listaPorMesDTO(){
+        
+        for(VendaDTO v : vendaDAO.findByMesDTO()){
+            
+            System.out.println(v);
+            
+        }
+        
+    }
+    
+    
     public void gerarGraficoVendaPorMes(){
         
         // cria um dataset
@@ -74,15 +93,12 @@ public class VendaController {
         // Label da legenda
         barDataSet.setLabel("Vendas Por Mes");
 
-        // Valores de vendas pra cada mês.
+        // Valores de vendas pra cada mês. 
         List<Number> values = new ArrayList<>();
-        values.add(65);
-        values.add(59);
-        values.add(80);
-        values.add(81);
-        values.add(56);
-        values.add(55);
-        values.add(40);
+        for(VendaDTO v : vendaDAO.findByMesDTO()){
+            values.add(v.getValor());
+        }
+       
         
         // Atribui os valores de vendas ao dataset
         barDataSet.setData(values);
@@ -104,39 +120,7 @@ public class VendaController {
         // Atribui o dataset aos dados do grafico
         data.addChartDataSet(barDataSet);
         
-        barDataSet = new BarChartDataSet();
         
-        // Label da legenda
-        barDataSet.setLabel("Despesas");
-
-        // Valores de vendas pra cada mês.
-        values = new ArrayList<>();
-        values.add(35);
-        values.add(79);
-        values.add(10);
-        values.add(71);
-        values.add(36);
-        values.add(45);
-        values.add(30);
-        
-        // Atribui os valores de vendas ao dataset
-        barDataSet.setData(values);
-
-        
-        bgColor = new ArrayList<>();
-        bgColor.add("rgb(255, 159, 64)");
-        
-        barDataSet.setBackgroundColor(bgColor);
-
-        borderColor = new ArrayList<>();
-        borderColor.add("rgb(255, 159, 64)");
-        
-        barDataSet.setBorderColor(borderColor);
-        barDataSet.setBorderWidth(1);
-
-
-        // Atribui o dataset aos dados do grafico
-        data.addChartDataSet(barDataSet);
 
         List<String> labels = new ArrayList<>();
         labels.add("Janeiro");
@@ -178,10 +162,10 @@ public class VendaController {
         legend.setLabels(legendLabels);
         options.setLegend(legend);
 
-        // disable animation
-//        Animation animation = new Animation();
-//        animation.setDuration(0);
-//        options.setAnimation(animation);
+        //disable animation
+        Animation animation = new Animation();
+        animation.setDuration(0);
+        options.setAnimation(animation);
 
         barModel.setOptions(options);
         
@@ -189,10 +173,11 @@ public class VendaController {
 
     
     
+    
     public VendaController() {
         vendaDAO = new VendaDAO();
         
-        this.gerarGraficoVendaPorMes();
+        //this.gerarGraficoVendaPorMes();
         
         
         
