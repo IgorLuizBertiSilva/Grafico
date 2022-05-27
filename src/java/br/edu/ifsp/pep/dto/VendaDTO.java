@@ -8,7 +8,7 @@ package br.edu.ifsp.pep.dto;
  *
  * @author aluno
  */
-public class VentaDTO {
+public class VendaDTO {
     
     private int mes;
     
@@ -22,6 +22,11 @@ public class VentaDTO {
         return valor;
     }
     
-    
+    public VendaDTO(int mes, double valor){
+        
+        this.mes = mes;
+        this.valor = valor;
+        
+    }
     
 }
